@@ -1,47 +1,120 @@
 export default function MyProjectSection() {
+  const personalProjects = [
+    {
+      title: "Portfolio Website",
+      image: "/projects/portfolio.png",
+      url: "https://example.com/portfolio",
+    },
+    {
+      title: "Todo App",
+      image: "/projects/todo.png",
+      url: "https://example.com/todo",
+    },
+    {
+      title: "Shop App",
+      image: "/projects/shop.png",
+      url: "https://example.com/shop",
+    },
+  ];
+
+  const academicProjects = [
+    {
+      title: "MedisGO APP",
+      image: "/projects/MedisGoAPP.png",
+      url: "https://github.com/Hanzzsu/MedisGo-App-Kotline",
+    },
+    {
+      title: "Web Admin MedisGO",
+      image: "/projects/Admin MedisGO.png",
+      url: "https://github.com/Hanzzsu/medisgo-web",
+    },
+    {
+      title: "Algorithm Visualizer",
+      image: "/projects/alg.png",
+      url: "https://example.com/alg",
+    },
+  ];
+
+  const professionalProjects = [
+    {
+      title: "Company Dashboard",
+      image: "/projects/dashboard.png",
+      url: "https://example.com/dashboard",
+    },
+  ];
+
   return (
     <section
       id="projects"
       className="min-h-screen bg-black text-white px-6 md:px-20 py-24"
     >
-      {/* MAIN TITLE */}
       <h1 className="text-4xl md:text-5xl font-extrabold text-center mb-20 tracking-wide">
-        My Project
+        All My Projects
       </h1>
 
-      {/* SECTION COMPONENT */}
-      <ProjectGroup title="Personal Project" count={3} />
-      <ProjectGroup title="Univ Project" count={3} />
-      <ProjectGroup title="Professional Project" count={1} />
+      <ProjectGroup title="Personal Project" list={personalProjects} />
+      <ProjectGroup title="Academic Project" list={academicProjects} />
+      <ProjectGroup title="Professional Project" list={professionalProjects} />
     </section>
   );
 }
 
 /* REUSABLE COMPONENT */
-function ProjectGroup({ title, count }) {
+function ProjectGroup({ title, list }) {
   return (
     <div className="mb-20">
-      {/* SECTION TITLE */}
       <h2 className="text-2xl font-semibold mb-6 tracking-wide text-purple-300">
         {title}
       </h2>
 
-      {/* GRID */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
-        {[...Array(count)].map((_, idx) => (
-          <div
+        {list.map((project, idx) => (
+          <a
             key={idx}
-            className="
-              w-full h-48
-              bg-white rounded-xl
-              shadow-lg shadow-purple-500/10
-              transition-all duration-300
-              hover:scale-[1.04] hover:shadow-purple-500/20 cursor-pointer
-              overflow-hidden
-            "
+            href={project.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group"
           >
-            <div className="w-full h-full bg-gray-200"></div>
-          </div>
+            <div
+              className="
+                w-full h-48 relative
+                rounded-xl overflow-hidden
+                shadow-lg shadow-purple-500/10
+                hover:shadow-purple-500/20 
+                transition-all duration-300 cursor-pointer
+              "
+            >
+              {/* IMAGE */}
+              <img
+                src={project.image}
+                alt={project.title}
+                className="
+                  w-full h-full object-cover 
+                  transition-transform duration-300 
+                  group-hover:scale-110
+                "
+              />
+
+              {/* OVERLAY VIEW DETAIL */}
+              <div
+                className="
+                  absolute inset-0 bg-black/50 opacity-0
+                  group-hover:opacity-100
+                  flex items-center justify-center
+                  text-white text-xl font-semibold
+                  transition-all duration-300
+                "
+              >
+                View Detail
+              </div>
+            </div>
+
+            {/* PROJECT TITLE */}
+            <p className="mt-3 text-lg font-semibold text-center">
+              {project.title}
+            </p>
+          </a>
         ))}
       </div>
     </div>
